@@ -1,11 +1,6 @@
 local socket = require("pgmoon.socket")
 local insert
 insert = table.insert
-local rshift, lshift, band
-do
-  local _obj_0 = require("bit")
-  rshift, lshift, band = _obj_0.rshift, _obj_0.lshift, _obj_0.band
-end
 local unpack = table.unpack or unpack
 local VERSION = "1.9.0"
 local _len
@@ -624,10 +619,10 @@ do
       end
       local _exp_0 = bytes
       if 4 == _exp_0 then
-        local a = band(n, 0xff)
-        local b = band(rshift(n, 8), 0xff)
-        local c = band(rshift(n, 16), 0xff)
-        local d = band(rshift(n, 24), 0xff)
+        local a = n & 0xff
+        local b = ((n>>8) & 0xff)
+        local c = ((n>>16)& 0xff)
+        local d = ((n>>24)& 0xff)
         return string.char(d, c, b, a)
       else
         return error("don't know how to encode " .. tostring(bytes) .. " byte(s)")
